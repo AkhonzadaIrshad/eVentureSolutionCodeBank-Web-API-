@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <title>ABC</title>
+</head>
+
+<body>
+
+    <div id="msg">
+    </div>
+    <br/>
+    <div>
+        <input type="text" placeholder="Name" id="name">
+        <input type="text" placeholder="City" id="city">
+        <input type="text" placeholder="Street" id="street">
+        <input type="text" placeholder="Id" id="id">
+        <input type="submit" id="sbbtn">
+    </div>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Street</th>
+            </tr>
+        </thead>
+        <tbody id="studentArea">
+
+        </tbody>
+
+    </table>
+
+
+    <script type="text/javascript" src="./jquery-2.2.3.min.js"></script>
+    <script>
+        $(function () {
+
+            $("#sbbtn").click(function () {
+
+                var Student =
+                    {
+                        Name: $("#name").val(),
+                        Id: $("#id").val(),
+                        Address:
+                        {
+                            City: $("#city").val(),
+                            Street: $("#street").val(),
+                        }
+
+                    }
+                $.ajax({
+
+                    url: "http://localhost:6737/api/Home/Add",
+                    data: Student,
+                    method: "Post",
+                }).done(function (result) {
+                    $("#msg").html(result);
+                    if (result === "Success") {
+                        $.ajax({
+
+                            url: "http://localhost:6737/api/Home/Get",
+                            method: "Get",
+			    //data-content:application/xml;utf-8
+
+                        }).done(function (students) {
+                           // alert(students[0].Name)
+                           //alert(students.length);
+                            if (students.length > 0) {
+                              
+                                for (var i = 0; i < students.length; i++) {
+                                   
+                                    var view = "<tr>" +
+                                        "<td>" + students[i].Id + "</td>" +
+                                        "<td>" + students[i].Name + "</td>" +
+                                        "<td>" + students[i].Address.City + "</td>" +
+                                        "<td>" + students[i].Address.Street + "</td>" +
+                                        "</tr>";
+
+                                    $("#studentArea").append(view);
+
+                                }
+
+
+                            }
+
+
+
+
+
+
+                        });
+                    }
+
+                })
+
+            })
+
+
+
+        });
+    </script>
+</body>
+
+</html>
