@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,11 +9,14 @@ namespace API.Controllers
 {
    public class Student
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        //public int Id { get; set; }
+        //public string Name { get; set; }
         public Address Address { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Father_Name { get; set; }
+        public string Roll_Number { get; set; }
 
-        
     }
 
    public class Address

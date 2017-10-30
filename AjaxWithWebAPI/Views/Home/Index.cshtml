@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h5 id="msgarea">
+    @ViewBag.Message
+</h5>
+
+<form method="post" action="/Home/Index">
+    
+    <input type="text" name="email" id="email"  value="" placeholder="Email"/>
+    <input type="submit" name="name" value="Send" />
+    
+</form>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+
+    $("#email").focusout(function() {
+        var Email = $("#email").val();
+
+        $.ajax({
+
+            url:"/Home/CheckEmail?email="+Email,
+            method:"Get"
+        }).done(function(param) {
+            if (param == "true") {
+                $("#msgarea").html("Already Exists");
+            } else {
+                $("#msgarea").html("");
+            }
+        }).error(function() {
+            alert("Something Went Wrong");
+        });
+    });
+
+    //function CheckExistence() {
+
+    //    var Email = $("#email").val();
+
+    //    $.ajax({
+
+    //        url:"/Home/CheckEmail?email="+Email,
+    //        method:"Get"
+    //    }).done(function(param) {
+    //        if (param == "true") {
+    //            $("#msgarea").html("Already Exists");
+    //        } else {
+    //            $("#msgarea").html("");
+    //        }
+    //    }).error(function() {
+    //        alert("Something Went Wrong");
+    //    });
+    //}
+
+
+</script>
+
